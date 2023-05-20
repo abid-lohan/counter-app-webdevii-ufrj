@@ -42,6 +42,21 @@ class App extends React.Component {
     this.setState({ counters });
   }
 
+  addCounter = () => {
+    let lastId = this.state.counters.slice(-1)[0].id;
+    const counters = this.state.counters;
+    counters.push({id: lastId+1, value: 0});
+    this.setState({counters});
+  }
+
+  removeCounter = () => {
+    let lastId = this.state.counters.slice(-1)[0].id;
+    if (lastId < 2) return;
+    const counters = this.state.counters;
+    counters.pop();
+    this.setState({counters});
+  }
+
   deleteId = (counterId) => {
     console.log("Event Handler Called", counterId);
     const counters = this.state.counters.filter((c) => c.id !== counterId);
@@ -63,6 +78,8 @@ class App extends React.Component {
                   onIncrement={this.increment}
                   onDecrement={this.decrement}
                   onDelete={this.deleteId}
+                  addCounter={this.addCounter}
+                  removeCounter={this.removeCounter}
               />
             </div>
           </main>
